@@ -89,9 +89,4 @@ class EditableCell extends React.Component {
     }
 }
 
-const styles = {
-  select: {
-    width: '100%'
-  }
-}
 

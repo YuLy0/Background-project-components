@@ -1,6 +1,7 @@
 import React from 'react'
 import './App.less'
 import EditableTable from './EditableTable/EditableFormTable/index'
+import GyroscopeAnimationDemo from './GyroscopeAnimationDemo/index'
 const tableData = [{
   key: 0,
   app: '汪酱',
@@ -25,7 +26,8 @@ class App extends React.Component{
   render(){
     return (
       <div className={'text'}>
-        <EditableTable tableData={tableData} submmit={this.submmit}/>
+        {/* <EditableTable tableData={tableData} submmit={this.submmit}/> */}
+        <GyroscopeAnimationDemo />
       </div>)
   }
 }

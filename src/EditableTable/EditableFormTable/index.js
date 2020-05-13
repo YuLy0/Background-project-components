@@ -124,7 +124,6 @@ class EditableTable extends React.Component {
         } else {
           newData.push(row);
         }
-        console.log(newData)
         this.setState({ data: newData, editingKey: '' });
       });
     }
@@ -148,7 +147,7 @@ class EditableTable extends React.Component {
       const newData = data;
       newData.splice(data.length, 1, row);
       this.setState({ data: newData, editingKey: key });
-    };
+    }
 
     handleSubmit=() => {
       const { data, editingKey } = this.state
@@ -181,7 +180,6 @@ class EditableTable extends React.Component {
           cell: EditableCell,
         },
       };
-      const { type } = this.props
 
       const columns = this.columns.map(col => {
         if (!col.editable) {

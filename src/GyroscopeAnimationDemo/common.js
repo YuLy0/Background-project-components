@@ -1,0 +1,5 @@
+export const CLOUD_IMG = '//img.ikstatic.cn/MTU4OTI3NjIwMjIwNSMyNDUjcG5n.png'
+export const HEADER_TEXT = '//img.ikstatic.cn/MTU4OTI3NjIxODI3NCMxODYjcG5n.png'
+export const LIGHT_IMG = '//img.ikstatic.cn/MTU4OTI3NjIzMTg5MSMyMTUjcG5n.png'
+export const HEART_IMG = '//img.ikstatic.cn/MTU4OTI3NjI0MzIyNiM5ODEjcG5n.png'
+export const DOTS_IMG = '//img.ikstatic.cn/MTU4OTI3NjI1NTIxMSM0NzMjcG5n.png'

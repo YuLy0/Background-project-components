@@ -1,5 +1,6 @@
 import React from 'react';
 import { Input, Form, Select } from 'antd';
+import { EditableContext } from '../../common';
 import './index.less'
 
 const FormItem = Form.Item;
@@ -8,7 +9,6 @@ const prodsList = [{id: 2, name: '旺财'}, {id: 1, name: '旺鸡'}]
 const classPrexif = 'editable-table'
 const cx = s => `${classPrexif}-${s}`
 
-export default
 class EditableCell extends React.Component {
     getInput = dataIndex => {
       switch (dataIndex) {
@@ -50,7 +50,7 @@ class EditableCell extends React.Component {
             </Input>
           )
         default:
-          return null
+          return <Input/>
       }
     };
 
@@ -82,8 +82,10 @@ class EditableCell extends React.Component {
     };
 
     render () {
-      return <div>{this.renderCell}</div>;
+      return <EditableContext.Consumer>{this.renderCell}</EditableContext.Consumer>;
     }
 }
 
 
+
+export default EditableCell

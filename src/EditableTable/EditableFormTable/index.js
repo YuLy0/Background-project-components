@@ -1,8 +1,6 @@
 import React from 'react';
 import { Popconfirm, Form, Table, Button, message } from 'antd';
 import PropTypes from 'prop-types';
-import { EditableContext } from '../TableContext';
-import EditableCell from '../EditableCell';
 import './index.less'
 
 const classPrexif = 'editable-table'
@@ -13,7 +11,7 @@ class EditableTable extends React.Component {
     tableData: PropTypes.array,
     columns: PropTypes.array,
     submmit: PropTypes.func,
-    editableCell: PropTypes.object
+    // editableCell: PropTypes.object
   }
   static defaultProps = {
     tableData: [],
@@ -113,6 +111,7 @@ class EditableTable extends React.Component {
         } else {
           newData.push(row);
         }
+        console.log(row)
         this.setState({ data: newData, editingKey: '' });
       });
     }
@@ -160,14 +159,15 @@ class EditableTable extends React.Component {
         }
       }
 
-      this.props.submmit(submitData)
+      this.props.onSubmmit(submitData)
     }
 
     render () {
       const { editableCell } = this.props
+
       const components = {
         body: {
-          cell: EditableCell,
+          cell: editableCell,
         },
       };
 
@@ -181,7 +181,7 @@ class EditableTable extends React.Component {
             record,
             dataIndex: col.dataIndex,
             title: col.title,
-            editing: this.isEditing(record),
+            editing: this.isEditing(record)
           }),
         };
       });
@@ -189,7 +189,7 @@ class EditableTable extends React.Component {
       const { form } = this.props;
 
       return (
-        <EditableContext.Provider value={form}>
+        <div>
           <Button onClick={this.handleAdd} type="primary" className={cx('topBtn')}>
             添加一行
           </Button>
@@ -206,10 +206,10 @@ class EditableTable extends React.Component {
               提交
             </Button>
           </div>
-        </EditableContext.Provider>
+        </div>
       );
     }
 }
 
-const EditableFormTable = Form.create()(EditableTable);
-export default EditableFormTable;
+// const EditableFormTable = Form.create()(EditableTable);
+export default EditableTable;

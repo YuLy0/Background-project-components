@@ -2,33 +2,31 @@ import React from 'react'
 import './App.less'
 import EditableTable from './EditableTable/EditableFormTable/index'
 import GyroscopeAnimationDemo from './GyroscopeAnimationDemo/index'
-const tableData = [{
-  key: 0,
-  app: '汪酱',
-  prod: '旺旺',
-},
-{
-  key: 1,
-  app: '汪酱',
-  prod: '旺旺',
-},
-{
-  key: 2,
-  app: '汪酱',
-  prod: '旺旺',
-}
-]
+import { tableData, editableTableColumns } from './constants'
+import ZooExample from './views/zooExample'
+import EditableCell from './components/EditableCell'
+import { Form } from 'antd'
+
+
+export const EditableContext = React.createContext()
 class App extends React.Component{
   submmit(res){
     console.log('submmitData',res)
   }
 
   render(){
+    const { form } = this.props
     return (
       <div className={'text'}>
-        {/* <EditableTable tableData={tableData} submmit={this.submmit}/> */}
-        <GyroscopeAnimationDemo />
+        <EditableTable 
+          columns={editableTableColumns}
+          tableData={tableData} 
+          submmit={this.submmit}
+          editableCell={<EditableCell from={form}/>}
+        />
+        {/* <GyroscopeAnimationDemo /> */}
+        {/* <ZooExample/> */}
       </div>)
   }
 }
-export default App
+export default Form.create()(App)

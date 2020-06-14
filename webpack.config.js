@@ -36,35 +36,12 @@ module.exports={
           use: [
             { loader: "style-loader" },
             { loader: "css-loader" },
-            {
-              loader: "postcss-loader",//自动加前缀
-              options: {
-                plugins: [
-                  require('autoprefixer')({browsers:['last 5 version']})
-                ]
-              }
-            },
             {  
               loader: "less-loader",
               options: {
                 module: true, //开启css模块化
                 javascriptEnabled: true
               }, 
-            }
-          ]
-        },
-        {
-          test: /\.scss$/,
-          use: [
-            { loader: "style-loader" },
-            { loader: "css-loader", },
-            { loader: "sass-loader" },
-            { loader: "postcss-loader",
-                options: {
-                  plugins: [
-                    require('autoprefixer')({browsers: ['last 5 version']})
-                  ]
-                }
             }
           ]
         },

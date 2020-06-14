@@ -11,10 +11,13 @@ const cx = s => `${classPrexif}-${s}`
 class EditableTable extends React.Component {
   static propTypes = {
     tableData: PropTypes.array,
-    submmit: PropTypes.func
+    columns: PropTypes.array,
+    submmit: PropTypes.func,
+    editableCell: PropTypes.object
   }
   static defaultProps = {
     tableData: [],
+    columns: []
   }
 
   constructor (props) {
@@ -24,18 +27,7 @@ class EditableTable extends React.Component {
       editingKey: '',
     };
     this.columns = [
-      {
-        title: 'app名称',
-        dataIndex: 'app',
-        width: '30%',
-        editable: true,
-      },
-      {
-        title: '产品线',
-        dataIndex: 'prod',
-        width: '30%',
-        editable: true,
-      },
+      ...this.props.columns,
       {
         title: '操作',
         dataIndex: 'operation',
@@ -44,17 +36,13 @@ class EditableTable extends React.Component {
           const editable = this.isEditing(record);
           return editable ? (
             <span>
-              <EditableContext.Consumer>
-                {form => (
-                  <button
-                    onClick={() => this.save(form, record.key)}
-                    className={cx('smallBtn')}
-                    type="button"
-                  >
-                    保存
-                  </button>
-                                )}
-              </EditableContext.Consumer>
+              <button
+                onClick={() => this.save(record.key)}
+                className={cx('smallBtn')}
+                type="button"
+              >
+                保存
+              </button>
               <Popconfirm
                 title="确定取消更改吗?"
                 onConfirm={() => this.cancel(record.key)}
@@ -107,7 +95,8 @@ class EditableTable extends React.Component {
       this.setState({ data: newData, editingKey: '' });
     };
 
-    save (form, key) {
+    save (key) {
+      const { form } = this.props
       form.validateFields((error, row) => {
         if (error) {
           return;
@@ -175,6 +164,7 @@ class EditableTable extends React.Component {
     }
 
     render () {
+      const { editableCell } = this.props
       const components = {
         body: {
           cell: EditableCell,

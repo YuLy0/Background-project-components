@@ -1,6 +1,5 @@
 import React from 'react';
 import { Input, Form, Select } from 'antd';
-import { EditableContext } from '../TableContext';
 import './index.less'
 
 const FormItem = Form.Item;
@@ -83,7 +82,7 @@ class EditableCell extends React.Component {
     };
 
     render () {
-      return <EditableContext.Consumer>{this.renderCell}</EditableContext.Consumer>;
+      return <div>{this.renderCell}</div>;
     }
 }
 

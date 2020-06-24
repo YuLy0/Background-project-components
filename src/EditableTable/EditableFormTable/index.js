@@ -1,5 +1,6 @@
 import React from 'react';
 import { Popconfirm, Form, Table, Button, message } from 'antd';
+import DefaultEditableCell from './EditableCell'
 import PropTypes from 'prop-types';
 import './index.less'
 
@@ -11,12 +12,29 @@ class EditableTable extends React.Component {
     tableData: PropTypes.array,
     columns: PropTypes.array,
     submmit: PropTypes.func,
-    // editableCell: PropTypes.object
+    submmitButtonStyle: PropTypes.object,
+    addLineButtonStyle: PropTypes.object
   }
   static defaultProps = {
     tableData: [],
-    columns: []
+    columns: [],
+    submmit: ()=>{},
+    submmitButtonStyle: {},
+    addLineButtonStyle: {}
   }
+
+  //用于说明所传递的数据类型
+  static childContextTypes = {
+    form: PropTypes.object
+  }
+
+  //getChildContext表示该组件通过context传递数据，该方法返回的对象就是context需要传递的数据
+  getChildContext() {
+    return {
+      form: this.props.form
+    }
+  }
+
 
   constructor (props) {
     super(props);
@@ -164,13 +182,11 @@ class EditableTable extends React.Component {
 
     render () {
       const { editableCell } = this.props
-
       const components = {
         body: {
-          cell: editableCell,
+          cell: editableCell || DefaultEditableCell,
         },
       };
-
       const columns = this.columns.map(col => {
         if (!col.editable) {
           return col;
@@ -186,11 +202,15 @@ class EditableTable extends React.Component {
         };
       });
       const { data } = this.state;
-      const { form } = this.props;
 
       return (
         <div>
-          <Button onClick={this.handleAdd} type="primary" className={cx('topBtn')}>
+          <Button 
+            onClick={this.handleAdd} 
+            type="primary" 
+            className={cx('topBtn')}
+            style={{...this.props.addLineButtonStyle}}
+          >
             添加一行
           </Button>
           <Table
@@ -202,7 +222,12 @@ class EditableTable extends React.Component {
             pagination={false}
           />
           <div className={cx('box')}>
-            <Button onClick={this.handleSubmit} type="primary" className={cx('bottomBtn')}>
+            <Button 
+              onClick={this.handleSubmit} 
+              type="primary" 
+              className={cx('bottomBtn')}
+              style={{...this.props.submmitButtonStyle}}
+            >
               提交
             </Button>
           </div>
@@ -211,5 +236,5 @@ class EditableTable extends React.Component {
     }
 }
 
-// const EditableFormTable = Form.create()(EditableTable);
-export default EditableTable;
+const EditableFormTable = Form.create()(EditableTable);
+export default EditableFormTable;

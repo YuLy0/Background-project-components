@@ -1,6 +1,6 @@
 import React from 'react';
 import { Input, Form, Select } from 'antd';
-import { EditableContext } from '../../common';
+import PropTypes from 'prop-types';
 import './index.less'
 
 const FormItem = Form.Item;
@@ -10,6 +10,11 @@ const classPrexif = 'editable-table'
 const cx = s => `${classPrexif}-${s}`
 
 class EditableCell extends React.Component {
+  //在子组件中用于说明context接收的数据类型
+  static contextTypes= {
+    form: PropTypes.object
+  }
+
     getInput = dataIndex => {
       switch (dataIndex) {
         case 'app':
@@ -36,17 +41,6 @@ class EditableCell extends React.Component {
             <Input
               placeholder="请编辑app"
             >
-              {/* {
-              prodsList.map(item =>
-                <Select.Option
-                  key={item.id}
-                  value={`${item.name}`}
-
-                >
-                  { item.name }
-                </Select.Option>
-              )
-            } */}
             </Input>
           )
         default:
@@ -54,7 +48,7 @@ class EditableCell extends React.Component {
       }
     };
 
-    renderCell = ({ getFieldDecorator }) => {
+    renderCell = () => {
       const {
         editing,
         dataIndex,
@@ -65,7 +59,7 @@ class EditableCell extends React.Component {
         children,
         ...restProps
       } = this.props;
-
+      const {getFieldDecorator}  = this.context.form
       return (
         <td {...restProps}>
           {editing ? (
@@ -82,7 +76,7 @@ class EditableCell extends React.Component {
     };
 
     render () {
-      return <EditableContext.Consumer>{this.renderCell}</EditableContext.Consumer>;
+      return <>{this.renderCell()}</>
     }
 }
 

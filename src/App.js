@@ -6,11 +6,8 @@ import { tableData, editableTableColumns } from './constants'
 import ZooExample from './views/zooExample'
 import EditableCell from './components/EditableCell'
 import { Form } from 'antd'
-import { EditableContext } from './common';
 
 
-
-// export const EditableContext = React.createContext()
 class App extends React.Component{
   submmit(res){
     console.log('submmitData',res)
@@ -21,18 +18,16 @@ class App extends React.Component{
 
     return (
       <div className={'text'}>
-        <EditableContext.Provider value={form}>
-          <EditableTable 
+        {/* <EditableTable 
           columns={editableTableColumns}
           tableData={tableData} 
           onSubmmit={this.submmit}
           editableCell={EditableCell}
           form={form}
-          />
-        </EditableContext.Provider>
-
-        {/* <GyroscopeAnimationDemo /> */}
-        {/* <ZooExample/> */}
+          submmitButtonStyle={{color: 'black'}}
+          addLineButtonStyle={{}}
+        /> */}
+        <ZooExample />
       </div>)
   }
 }

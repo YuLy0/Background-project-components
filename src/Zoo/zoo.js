@@ -71,8 +71,9 @@ class Zoo {
     };
 
     // 创建 store
-    this.store = createStore(reducer);
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
+    const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+    this.store = createStore(reducer, composeEnhancers());
+    // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
     const { dispatch, getState } = this.store;
   
     // 给每个 model 的 effects 对象添加 dispatch、getState 方法
